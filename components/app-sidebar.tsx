@@ -10,6 +10,7 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { Home, Vote } from "lucide-react";
+import { names } from "@/lib/utils";
 
 const home = {
   title: "Home",
@@ -19,16 +20,16 @@ const home = {
 
 const electionItems = [
   {
-    title: "Generales",
-    url: "/elections/generales",
+    title: names.congress.name,
+    url: "/elections/congress_elections",
     icon: Vote,
   },
 ];
 
 const pollItems = [
     {
-        title: "Generales",
-        url: "/polls/generales",
+        title: names.congress.name,
+        url: "/polls/congress_elections",
         icon: Vote,
     }
 ]
