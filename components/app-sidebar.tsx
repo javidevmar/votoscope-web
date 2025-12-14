@@ -1,4 +1,4 @@
-import { title } from "process";
+import "process";
 import {
   Sidebar,
   SidebarContent,
@@ -27,26 +27,26 @@ const electionItems = [
 ];
 
 const pollItems = [
-    {
-        title: names.congress.name,
-        url: "/polls/congress_elections",
-        icon: Vote,
-    }
-]
+  {
+    title: names.congress.name,
+    url: "/polls/congress_elections",
+    icon: Vote,
+  },
+];
 
 export default function SideNav() {
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-            <SidebarMenuItem key={home.title}>
-              <SidebarMenuButton asChild>
-                <a href={home.url}>
-                  <home.icon />
-                  <span>{home.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+          <SidebarMenuItem key={home.title}>
+            <SidebarMenuButton asChild>
+              <a href={home.url}>
+                <home.icon />
+                <span>{home.title}</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupLabel>Elecciones</SidebarGroupLabel>

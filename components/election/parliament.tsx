@@ -36,11 +36,9 @@ const CENTER_Y = 0;
 export function Parliament({
   data,
   totalSeats,
-  absoluteMajority,
 }: {
   data: PartyHemicycle[];
   totalSeats?: number;
-  absoluteMajority?: number;
 }) {
   // Sort data by seats descending to ensure visually pleasing blocks
   const sortedData = useMemo(() => {
@@ -261,7 +259,7 @@ export function Parliament({
   }, [data]);
 
   return (
-    <div className="w-full mx-auto aspect-[2/1]">
+    <div className="w-full mx-auto aspect-2/1">
       <style>{`
         @keyframes flipReveal {
           0% { transform: scaleX(1); fill: #e5e7eb; }
@@ -335,7 +333,7 @@ export function Parliament({
                     fill="#e5e7eb"
                     className="hover:opacity-80"
                     style={{
-                      // @ts-ignore
+                      // @ts-expect-error - CSS custom property
                       "--target-color": d.color || "#ccc",
                       animation: "flipReveal 0.8s ease-in-out both",
                       animationDelay: `${i * 3}ms`,
