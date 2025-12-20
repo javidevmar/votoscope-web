@@ -36,9 +36,12 @@ export default function CongressElections() {
 
   useEffect(() => {
     async function load() {
+      // 1. Si no hay elección, no cargues nada (y limpia datos viejos si quieres)
       if (!selectedElection) return;
+
+      setLoading(true);
       const { data, error } = await fetchCongressElectionData(
-        selectedElection?.id ?? "",
+        selectedElection.id, // Ya sabemos que no es null aquí
         ambitos.nacional,
         null
       );
@@ -57,10 +60,7 @@ export default function CongressElections() {
   if (error) return <div className="p-4 text-red-600">Error: {error}</div>;
 
   return (
-    <div
-      className={`p-4 space-y-4 w-full transition-opacity duration-200 
-    ${loading ? "opacity-50" : "opacity-100"}`}
-    >
+    <div className="p-4 space-y-4 w-full">
       <NativeSelect
         value={selectedElection?.id ?? ""}
         onChange={(e) => {
@@ -77,7 +77,9 @@ export default function CongressElections() {
           </option>
         ))}
       </NativeSelect>
-      <h1 className="text-2xl font-semibold">Hemiciclo Congreso 2023</h1>
+      <h1 className="text-2xl font-semibold">
+        Hemiciclo Congreso {selectedElection?.ano}
+      </h1>
       <Parliament data={data} totalSeats={350} />
     </div>
   );

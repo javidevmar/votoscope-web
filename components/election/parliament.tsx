@@ -325,39 +325,83 @@ export function Parliament({
           )}
 
           {dots.map((d, i) => (
-            <Tooltip key={i} delayDuration={100}>
-              <TooltipTrigger asChild>
-                <g style={{ transform: `translate(${d.x}px, ${d.y}px)` }}>
-                  <circle
-                    r={d.r}
-                    fill="#e5e7eb"
-                    className="hover:opacity-80"
-                    style={{
-                      // @ts-expect-error - CSS custom property
-                      "--target-color": d.color || "#ccc",
-                      animation: "flipReveal 0.8s ease-in-out both",
-                      animationDelay: `${i * 3}ms`,
-                    }}
-                  />
-                </g>
-              </TooltipTrigger>
-              <TooltipContent
-                side="top"
-                className="bg-white text-black p-3 rounded-xl border-2 shadow-lg"
-                style={{ borderColor: d.color }}
-              >
-                <div className="flex flex-col items-center">
-                  <span className="font-bold text-lg">{d.siglas}</span>
-                  <span className="text-sm text-gray-600 mb-1">{d.name}</span>
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100">
-                    {seatsByParty.get(d.siglas)} escaños
-                  </span>
-                </div>
-              </TooltipContent>
-            </Tooltip>
+            <ParliamentDot
+              key={i}
+              d={d}
+              i={i}
+              seatsCount={seatsByParty.get(d.siglas)}
+            />
           ))}
         </svg>
       </TooltipProvider>
     </div>
+  );
+}
+
+function ParliamentDot({
+  d,
+  i,
+  seatsCount,
+}: {
+  d: Dot;
+  i: number;
+  seatsCount?: number;
+}) {
+  const [isEntry, setIsEntry] = React.useState(true);
+  const prevSiglas = React.useRef(d.siglas);
+
+  // 1. Manage Entry -> Stable transition
+  React.useEffect(() => {
+    // Total time = delay (i*3) + duration (800)
+    const totalDuration = i * 3 + 800;
+    const timer = setTimeout(() => {
+      setIsEntry(false);
+    }, totalDuration);
+    return () => clearTimeout(timer);
+  }, [i]);
+
+  // 2. Force exit entry if data changes (user switches election)
+  React.useEffect(() => {
+    if (d.siglas !== prevSiglas.current) {
+      prevSiglas.current = d.siglas;
+      setIsEntry(false);
+    }
+  }, [d.siglas]);
+
+  return (
+    <Tooltip delayDuration={100}>
+      <TooltipTrigger asChild>
+        <g style={{ transform: `translate(${d.x}px, ${d.y}px)` }}>
+          <circle
+            r={d.r}
+            // Keep transition-colors active always for smooth finish
+            className="hover:opacity-80 transition-colors duration-500 ease-in-out"
+            style={{
+              // @ts-expect-error - CSS custom property
+              "--target-color": d.color || "#ccc",
+              fill: d.color,
+              // Only apply animation if we are in entry phase
+              animation: isEntry
+                ? `flipReveal 0.8s ease-in-out backwards`
+                : undefined,
+              animationDelay: isEntry ? `${i * 3}ms` : undefined,
+            }}
+          />
+        </g>
+      </TooltipTrigger>
+      <TooltipContent
+        side="top"
+        className="bg-white text-black p-3 rounded-xl border-2 shadow-lg"
+        style={{ borderColor: d.color }}
+      >
+        <div className="flex flex-col items-center">
+          <span className="font-bold text-lg">{d.siglas}</span>
+          <span className="text-sm text-gray-600 mb-1">{d.name}</span>
+          <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100">
+            {seatsCount} escaños
+          </span>
+        </div>
+      </TooltipContent>
+    </Tooltip>
   );
 }
