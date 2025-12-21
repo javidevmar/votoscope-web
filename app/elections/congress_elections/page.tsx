@@ -25,7 +25,6 @@ export default async function CongressElections(props: PageProps) {
     null
   );
 
-  // Si no hay ID en la URL, redirigimos a la elección más reciente
   if (!electionId && elections.length > 0) {
     redirect(`/elections/congress_elections?electionId=${elections[0].id}`);
   }
@@ -48,16 +47,21 @@ export default async function CongressElections(props: PageProps) {
     return <div className="p-4 text-red-600">Error: {error}</div>;
   }
 
-  // 5. Renderizado final (sin useEffects, directo al grano)
   return (
-    <div className="p-4 space-y-4 w-full">
-      {/* Pasamos la lista al Cliente para que pinte el selector */}
-      <ElectionSelector elections={elections} />
-      <h1 className="text-2xl font-semibold">
-        Hemiciclo Congreso {selectedElection.ano}
-      </h1>
-      {/* Renderizamos el gráfico con los datos que acabamos de bajar */}
-      <Parliament data={data || []} totalSeats={350} />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="col-span-2 border-2 border-dashed bg-gray-100 rounded-xl flex justify-between items-center p-4">
+        <div>Breadcrumbs</div>
+        <ElectionSelector elections={elections} />
+      </div>
+      <div className="p-4 space-y-4 w-full">
+        <Parliament data={data || []} totalSeats={350} />
+      </div>
+      <div className="border-2 border-dashed bg-gray-100 h-96 rounded-xl">
+        Mapa
+      </div>
+      <div className="col-span-2 border-2 border-dashed bg-gray-100 h-96 rounded-xl">
+        Ficha
+      </div>
     </div>
   );
 }
