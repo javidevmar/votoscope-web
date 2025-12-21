@@ -7,6 +7,7 @@ import {
 import { ambitos, Election, electoralTypes, getMonthName } from "@/lib/utils";
 import { NativeSelect } from "@/components/ui/native-select";
 import { redirect } from "next/navigation";
+import { ElectionMap } from "@/components/maps/map";
 
 interface PageProps {
   searchParams: Promise<{
@@ -48,7 +49,7 @@ export default async function CongressElections(props: PageProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="col-span-2 border-2 border-dashed bg-gray-100 rounded-xl flex justify-between items-center p-4">
         <div>Breadcrumbs</div>
         <ElectionSelector elections={elections} />
@@ -56,9 +57,7 @@ export default async function CongressElections(props: PageProps) {
       <div className="p-4 space-y-4 w-full">
         <Parliament data={data || []} totalSeats={350} />
       </div>
-      <div className="border-2 border-dashed bg-gray-100 h-96 rounded-xl">
-        Mapa
-      </div>
+      <ElectionMap />
       <div className="col-span-2 border-2 border-dashed bg-gray-100 h-96 rounded-xl">
         Ficha
       </div>
