@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo } from "react";
 import {
   Tooltip,
@@ -371,7 +372,12 @@ function ParliamentDot({
   return (
     <Tooltip delayDuration={100}>
       <TooltipTrigger asChild>
-        <g style={{ transform: `translate(${d.x}px, ${d.y}px)` }}>
+        {/* Fixed to avoid precision issues */}
+        <g
+          style={{
+            transform: `translate(${d.x.toFixed(2)}px, ${d.y.toFixed(2)}px)`,
+          }}
+        >
           <circle
             r={d.r}
             // Keep transition-colors active always for smooth finish
