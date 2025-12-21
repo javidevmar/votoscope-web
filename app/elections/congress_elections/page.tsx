@@ -1,5 +1,5 @@
 import { Parliament, PartyHemicycle } from "@/components/election/parliament";
-import { ElectionSelector } from "@/components/election/election-selector";
+import { ElectionSelector } from "@/components/election/election-select";
 import {
   fetchCongressElectionData,
   fetchElectionDataList,
@@ -8,6 +8,15 @@ import { ambitos, Election, electoralTypes, getMonthName } from "@/lib/utils";
 import { NativeSelect } from "@/components/ui/native-select";
 import { redirect } from "next/navigation";
 import { ElectionMap } from "@/components/maps/map";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { LocationSelector } from "@/components/election/location-select";
 
 interface PageProps {
   searchParams: Promise<{
@@ -51,7 +60,21 @@ export default async function CongressElections(props: PageProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="col-span-2 border-2 border-dashed bg-gray-100 rounded-xl flex justify-between items-center p-4">
-        <div>Breadcrumbs</div>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/elections/congress_elections">
+                Nacional
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbSeparator />
+
+            <BreadcrumbItem>
+              <LocationSelector />
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <ElectionSelector elections={elections} />
       </div>
       <div className="p-4 space-y-4 w-full">

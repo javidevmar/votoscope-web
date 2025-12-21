@@ -56,3 +56,25 @@ export function getMonthName(month: number): string {
   ];
   return months[month - 1];
 }
+
+export const ccaaList = [
+  { id: "01", name: "Andalucía" },
+  { id: "02", name: "Aragón" },
+  { id: "03", name: "Principado de Asturias" },
+  { id: "04", name: "Illes Balears" },
+  { id: "05", name: "Canarias" },
+  { id: "06", name: "Cantabria" },
+  { id: "07", name: "Castilla y León" },
+  { id: "08", name: "Castilla-La Mancha" },
+  { id: "09", name: "Cataluña/Catalunya" },
+  { id: "10", name: "Comunitat Valenciana" },
+  { id: "11", name: "Extremadura" },
+  { id: "12", name: "Galicia" },
+  { id: "13", name: "Comunidad de Madrid" },
+  { id: "14", name: "Región de Murcia" },
+  { id: "15", name: "Comunidad Foral de Navarra" },
+  { id: "16", name: "País Vasco/Euskadi" },
+  { id: "17", name: "La Rioja" },
+  { id: "18", name: "Ceuta" },
+  { id: "19", name: "Melilla" },
+];
