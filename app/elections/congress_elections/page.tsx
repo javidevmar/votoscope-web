@@ -3,7 +3,7 @@ import { ElectionSelector } from "@/components/election/election-select";
 import {
   fetchCongressElectionData,
   fetchElectionDataList,
-} from "@/lib/supabase/queries";
+} from "@/lib/db/queries";
 import { ambitos, Election, electoralTypes, getMonthName } from "@/lib/utils";
 import { NativeSelect } from "@/components/ui/native-select";
 import { redirect } from "next/navigation";
