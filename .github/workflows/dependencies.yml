@@ -36,4 +36,4 @@ jobs:
           scan-args: |-
             -r
             --skip-git
-        #     ./
+            ./
