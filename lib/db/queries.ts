@@ -1,5 +1,5 @@
 import { db } from ".";
-import { eleccion, goldCongresoHemiciclo, partido } from "./schema";
+import { eleccion, goldCongresoHemiciclo, partido } from "@votoscope/db";
 import { eq, and, desc, isNull, gt } from "drizzle-orm";
 import { PartyHemicycle } from "@/components/election/parliament";
 import { Election } from "../utils";
